@@ -1,0 +1,9 @@
+indexes:
+- kind: Review
+  ancestor: yes
+  properties:
+  - name: location
+  - name: description
+  - name: title
+  - name: star_rating
+  - name: date

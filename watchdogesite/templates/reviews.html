@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="jumbotron">
+        <p>
+        	Welcome to the reviews page!
+        </p>
+        <p>
+        	<a href='/add_review'>Create a review.</a>
+        </p>
+    </div>
+
+    <div class="container-fluid">
+    	{{ reviews.length }}
+    	{% for review in reviews %}
+    		{{ review.title }}
+    	{% endfor %}
+    </div>
+{% endblock content %}
