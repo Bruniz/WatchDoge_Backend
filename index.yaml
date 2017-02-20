@@ -1,9 +1,10 @@
 indexes:
-- kind: Review
+- kind: Report
   ancestor: yes
   properties:
-  - name: location
-  - name: description
+  - name: type
   - name: title
-  - name: star_rating
+  - name: description
+  - name: pets
+  - name: entry
   - name: date

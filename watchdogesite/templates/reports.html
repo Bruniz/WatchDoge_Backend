@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="jumbotron">
+        <p>
+        	Welcome to the reports page!
+        </p>
+        <p>
+        	<a href='/reports/add'>Create a report.</a>
+        </p>
+    </div>
+
+    <div class="container-fluid jumbotron">
+    	{{ reports.length }}
+    	{% for report in reports %}
+    		{{ report.title }} {{ report.description }}  <br>
+    	{% endfor %}
+    </div>
+{% endblock content %}

@@ -7,8 +7,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', 'watchdogesite.views.home', name='home'),
     url(r'^about/', 'watchdogesite.views.about', name='about'),
-    url(r'^reviews/', 'watchdogesite.views.reviews', name='reviews'),
-    url(r'^add_review', 'watchdogesite.views.add_review', name='add_review'),
+    url(r'^reports/add', 'watchdogesite.views.add_report', name='add_report'),
+    url(r'^reports/', 'watchdogesite.views.reports', name='reports'),
+
 
 #    url(r'^admin/', include(admin.site.urls)),
 ]

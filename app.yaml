@@ -1,8 +1,14 @@
+#application: watchdoge # Remove comment from line for local testing. Should be commented out on deploy
+#version: 1 # Remove comment from line for local testing. Should be commented out on deploy
 runtime: python27
 api_version: 1
 threadsafe: yes
 
 handlers:
+
+- url: /favicon\.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon\.ico
 
 - url: /static
   static_dir: static
