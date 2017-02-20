@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from google.appengine.ext import db
-from watchdogesite.models import Review
+from watchdogesite.models import Report
 
 import datetime
 import logging
@@ -18,19 +18,19 @@ def about(request):
     return render(request, "about.html")
 
 
-def reviews(request):
-    reviews = db.GqlQuery("SELECT * FROM Review")
-    logger.info(reviews)
-    return render(request, "reviews.html", {'reviews': reviews})
+def reports(request):
+    reports = db.GqlQuery("SELECT * FROM Report")
+    logger.info(reports)
+    return render(request, "reports.html", {'reports': reports})
 
 
-def add_review(request):
+def add_report(request):
     if request.method == 'POST':
         items = request.POST
-        r = Review(location=items['location'], description=items['review'], title=items['title'],
-                   star_rating=int(items['stars']))
+        r = Report(type=items['type'], description=items['desc'], title=items['title'],
+                   pets=items['pets'], entry=items['entry'])
         r.date = datetime.datetime.now().date()
         r.put()
-        return redirect('/reviews')
+        return redirect('/reports')
     else:
-        return render(request, 'add_review.html')
+        return render(request, 'add_report.html')

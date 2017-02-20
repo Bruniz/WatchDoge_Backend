@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <form id='add_review' role='form' method='POST' action='/add_report'>
+    	{% csrf_token %}
+
+    	<div class='container-fluid'>
+	    	<div class='form-group col-lg-12'>
+	    		<label for="title">Report Title:</label>
+	    		<input type="text" class="form-control" id="title" name="title" placeholder="Title of your review">
+	  		</div>
+
+	  		<div class='form-group col-lg-12'>
+	    		<label for="title">Report type:</label>
+	    		<input type="text" class="form-control" id="location" name="type" placeholder="Type of report">
+	  		</div>
+
+	  		<div class='form-group col-lg-12'>
+	  			<label for="title">Description:</label>
+	  			<textarea class="form-control" rows="6" placeholder='Give us your review' name='desc' id='desc'></textarea>
+	  		</div>
+
+            <div class='form-group col-lg-12'>
+	    		<label for="pets">Pets:</label>
+	    		<input type="text" class="form-control" id="pets" name="pets" placeholder="Pets">
+	  		</div>
+            <div class='form-group col-lg-12'>
+	    		<label for="entry">Entry:</label>
+	    		<input type="text" class="form-control" id="entry" name="entry" placeholder="Entry">
+	  		</div>
+
+	    	<div class='form-group col-lg-12'>
+	  			<input type='submit' class='btn btn-primary' value='Submit' />
+	  		</div>
+	  	</div>
+
+    </form>
+{% endblock content %}
