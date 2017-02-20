@@ -5,17 +5,17 @@ import datetime
 
 
 # Create your models here.
-class Review(db.Model):
-    location = db.StringProperty(required=True)
-    description = db.StringProperty(required=True)
+class Report(db.Model):
+    type = db.StringProperty(required=True)
     title = db.StringProperty(required=True)
-    star_rating = db.IntegerProperty(default=0)
+    description = db.StringProperty(required=True)
+    pets = db.StringProperty(required=True)
+    entry = db.StringProperty(required=True)
     date = db.DateProperty()
 
     meta = {
         'indexes': [
-            'location',
-            'title',
-            'star_rating'
+            'type',
+            'title'
         ]
     }
