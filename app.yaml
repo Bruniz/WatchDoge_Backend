@@ -21,5 +21,8 @@ libraries:
 - name: django
   version: "1.5"
 
+- name: ssl
+  version: 2.7
+
 env_variables:
   DJANGO_SETTINGS_MODULE: 'watchdoge.settings'
