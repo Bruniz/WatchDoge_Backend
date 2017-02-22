@@ -8,7 +8,7 @@ import datetime
 class Report(db.Model):
     type = db.StringProperty(required=True)
     title = db.StringProperty(required=True)
-    description = db.StringProperty(required=True)
+    description = db.StringProperty(required=True, multiline=True)
     pets = db.StringProperty(required=True)
     entry = db.StringProperty(required=True)
     date = db.DateProperty()
