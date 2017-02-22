@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from google.appengine.ext import db
 from watchdogesite.models import Report
-
+from django.views.decorators.csrf import csrf_exempt
 import datetime
 import logging
 
@@ -24,6 +24,7 @@ def reports(request):
     return render(request, "reports.html", {'reports': reports})
 
 
+@csrf_exempt
 def add_report(request):
     if request.method == 'POST':
         items = request.POST
