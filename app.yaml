@@ -1,5 +1,5 @@
-#application: watchdoge # Remove comment from line for local testing. Should be commented out on deploy
-#version: 1 # Remove comment from line for local testing. Should be commented out on deploy
+application: watchdoge # Remove comment from line for local testing. Should be commented out on deploy
+version: 1 # Remove comment from line for local testing. Should be commented out on deploy
 runtime: python27
 api_version: 1
 threadsafe: yes
