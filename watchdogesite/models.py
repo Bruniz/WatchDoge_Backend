@@ -22,6 +22,7 @@ class Report(db.Model):
         ]
     }
 
+
 class Photo(ndb.Model):
     reportID = ndb.StringProperty()
-    blob_key = blobstore.BlobReferenceProperty()
+    blob_key = ndb.BlobKeyProperty()
