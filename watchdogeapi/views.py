@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 @csrf_exempt
-def add(self, request):
+def add(request):
 
     # Add new report
     if request.method == 'POST':
@@ -19,10 +19,8 @@ def add(self, request):
                    pets=items['pets'], entry=items['entry'])
         r.date = datetime.datetime.now().date()
         r.put()
-        data = {'id': r.id}
-        return HttpResponse(json.dumps(data),
-                            status=200,
-                            content_type='application/json')
+        return HttpResponse(r.key(),
+                            content_type='text/plain')
 
     else:
         return HttpResponseNotAllowed('POST')
