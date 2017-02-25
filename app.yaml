@@ -6,6 +6,12 @@ threadsafe: yes
 
 handlers:
 
+- url: /get_upload_url # Url for getting upload url
+  script: photoapp.app
+
+- url: /upload_photo # handler for upload
+  script: photoapp.app
+
 - url: /favicon\.ico
   static_files: static/images/favicon.ico
   upload: static/images/favicon\.ico
@@ -21,5 +27,9 @@ libraries:
 - name: django
   version: "1.5"
 
+- name: webapp2
+  version: "2.5.2"
+
 env_variables:
   DJANGO_SETTINGS_MODULE: 'watchdoge.settings'
+
