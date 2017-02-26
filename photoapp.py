@@ -6,14 +6,13 @@ from watchdogesite.models import Photo
 
 AUTH = "AMmfu6Zc_3BPr4ehPamOOQP"
 logger = logging.getLogger(__name__)
+
 # Method for fetching a photo upload url
 # Should make a POST to "/upload_url" and params should be:
 # params: 'AUTH': "AMmfu6Zc_3BPr4ehPamOOQP"
 # returns JSON
 # Success: {'result': "OK", 'url': "long url to send photo to"}
 # Fail: {'result': "ERROR", 'url': "NA"}
-
-
 class PhotoUploadUrlCreator(webapp2.RequestHandler):
     def post(self):
         logger.info(" url post create")
@@ -28,7 +27,12 @@ class PhotoUploadUrlCreator(webapp2.RequestHandler):
     def get(self):
         self.error(405)
 
-
+# Method for uploading a photo
+# Get url for upload from calling above method first
+# params: 'reportID' and the file
+# returns JSON
+# Success: {'result': "OK"}
+# Fail: error 500
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         try:

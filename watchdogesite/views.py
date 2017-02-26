@@ -9,8 +9,6 @@ from watchdogesite.models import Photo
 
 logger = logging.getLogger(__name__)
 
-AUTH = "AMmfu6Zc_3BPr4ehPamOOQP"
-
 # Create your views here.
 def home(request):
     return render(request, "home.html")

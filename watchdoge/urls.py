@@ -9,7 +9,8 @@ urlpatterns = [
     url(r'^about/', 'watchdogesite.views.about', name='about'),
     url(r'^reports/add', 'watchdogesite.views.add_report', name='add_report'),
     url(r'^reports/', 'watchdogesite.views.reports', name='reports'),
-    url(r'^api/reports/add', 'watchdogeapi.views.add', name='api_add_report'),
+    url(r'^api/report/add', 'watchdogeapi.views.add', name='api_add_report'),
+
 
 #    url(r'^admin/', include(admin.site.urls)),
 ]
