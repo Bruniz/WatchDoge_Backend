@@ -36,15 +36,17 @@ class PhotoUploadUrlCreator(webapp2.RequestHandler):
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         try:
-            upload = self.get_uploads()[0]
-            photo = Photo(
-                reportID=self.request.get('reportID'),
-                blob_key=upload.key())
-            photo.put()
+            if self.request.get('reportID'):
+                upload = self.get_uploads()[0]
+                photo = Photo(
+                    reportID=self.request.get('reportID'),
+                    blob_key=upload.key())
+                photo.put()
 
-            response_data = {'result': 'OK'}
-            self.response.out.write(response_data)
-
+                response_data = {'result': 'OK'}
+                self.response.out.write(response_data)
+            else:
+                self.error(405)
         except:
             self.error(500)
 
