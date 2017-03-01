@@ -1,3 +1,4 @@
+import sys
 from django.http import HttpResponse
 from django.http import HttpResponseNotAllowed
 from django.http import HttpResponseServerError
@@ -11,7 +12,7 @@ import hashlib
 
 logger = logging.getLogger(__name__)
 
-p = '1337badwolf'
+p = "1337badwolf"
 m = hashlib.sha1()
 m.update(p)
 CHECK = m.hexdigest()
@@ -19,21 +20,32 @@ CHECK = m.hexdigest()
 
 @csrf_exempt
 def add(request):
-
+    logger.info('Report recieved')
     # Add new report
     if request.method == 'POST':
+        logger.info('Report was POST')
         try:
             items = request.POST
-            if ('check' in items and 'type' in items and
+            logger.info(items)
+            if ('type' in items and
                     'desc' in items and 'title' in items and
                     'pets' in items and 'entry' in items):
-                if request.POST['check'] is not CHECK:
-                    return HttpResponseForbidden
+                logger.info('all params in post')
+                # if request.POST['check'] is not p:
+                #     logger.error(request.POST['check'])
+                #     logger.error('Wrong check')
+                #     return HttpResponseForbidden
                 try:
+                    logger.info('Try')
                     r = Report(type=items['type'], description=items['desc'], title=items['title'],
                                pets=items['pets'], entry=items['entry'])
+                    logger.info(datetime.datetime.now().date())
                     r.date = datetime.datetime.now().date()
+                    logger.info(r)
+                    logger.info(datetime.datetime.now().date())
                     r.put()
+                    r.save()
+                    logger.info(r.key())
                     return HttpResponse(r.key(),
                                         content_type='text/plain')
                 except TransactionFailedError, e:
@@ -41,10 +53,11 @@ def add(request):
                     logger.error(e)
                     return HttpResponseServerError('Failed to receive report')
             else:
+                logger.error('Mega if fail')
                 return HttpResponseForbidden
-        except Exception, er:
+        except Exception:
             logger.error('Method fail')
-            logger.error(er)
+            logger.error(sys.exc_info()[0])
             return HttpResponseServerError('API fail')
 
     else:

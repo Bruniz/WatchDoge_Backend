@@ -18,7 +18,7 @@ class PhotoUploadUrlCreator(webapp2.RequestHandler):
         logger.info(" url post create")
         if self.request.get('AUTH') == AUTH:
             upload_url = blobstore.create_upload_url('/upload_photo')
-            response_data = {'result': 'OK', 'url': upload_url}
+            response_data = {upload_url}
             self.response.out.write(response_data)
         else:
             response_data = {'result': 'OK', 'url': 'NA'}
@@ -34,20 +34,24 @@ class PhotoUploadUrlCreator(webapp2.RequestHandler):
 # Success: {'result': "OK"}
 # Fail: error 500
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+    logger.info('photoupload')
     def post(self):
+        logger.info('post')
         try:
-            if self.request.get('reportID'):
-                upload = self.get_uploads()[0]
-                photo = Photo(
-                    reportID=self.request.get('reportID'),
-                    blob_key=upload.key())
-                photo.put()
+            logger.info('try')
+            upload = self.get_uploads()[0]
+            logger.info('upload')
+            photo = Photo(
+                reportID=self.request.get('Reportid'),
+                blob_key=upload.key())
+            logger.info('photo')
+            photo.put()
+            logger.info(self.request.get('Reportid'))
+            logger.info(str(self.request))
+            self.response.out.write(200)
 
-                response_data = {'result': 'OK'}
-                self.response.out.write(response_data)
-            else:
-                self.error(405)
         except:
+            logger.error('server error, except', 500)
             self.error(500)
 
 app = webapp2.WSGIApplication([
