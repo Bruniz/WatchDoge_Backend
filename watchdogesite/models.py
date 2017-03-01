@@ -1,5 +1,7 @@
 from django.db import models
+from google.appengine.ext.blobstore import blobstore
 from google.appengine.ext import db
+from google.appengine.ext import ndb
 import webapp2
 import datetime
 
@@ -8,7 +10,7 @@ import datetime
 class Report(db.Model):
     type = db.StringProperty(required=True)
     title = db.StringProperty(required=True)
-    description = db.StringProperty(required=True)
+    description = db.StringProperty(required=True, multiline=True)
     pets = db.StringProperty(required=True)
     entry = db.StringProperty(required=True)
     date = db.DateProperty()
@@ -19,3 +21,8 @@ class Report(db.Model):
             'title'
         ]
     }
+
+
+class Photo(ndb.Model):
+    reportID = ndb.StringProperty()
+    blob_key = ndb.BlobKeyProperty()

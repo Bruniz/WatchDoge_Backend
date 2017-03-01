@@ -1,13 +1,13 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
-from google.appengine.ext import db
-from watchdogesite.models import Report
-from django.views.decorators.csrf import csrf_exempt
 import datetime
 import logging
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from google.appengine.ext import db
+from watchdogesite.models import Report
+from watchdogesite.models import Photo
 
 logger = logging.getLogger(__name__)
-
 
 # Create your views here.
 def home(request):
@@ -20,9 +20,8 @@ def about(request):
 
 def reports(request):
     reports = db.GqlQuery("SELECT * FROM Report")
-    logger.info(reports)
-    return render(request, "reports.html", {'reports': reports})
 
+    return render(request, "reports.html", {'reports': reports})
 
 @csrf_exempt
 def add_report(request):

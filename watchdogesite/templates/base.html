@@ -8,7 +8,7 @@
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
         <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32" />
         <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16" />
-        <title>{% block title %}Hotel Reviews{% endblock title %}</title>
+        <title>{% block title %}WatchDoge{% endblock title %}</title>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -23,11 +23,11 @@
 							  <div class="container-fluid">
 							    <!-- Brand and toggle get grouped for better mobile display -->
 							    <div class="navbar-header">
-							      <a class="navbar-brand" href="#">Hotel Reviews</a>
+							      <a class="navbar-brand" href="{% url 'home' %}">WatchDoge</a>
 							    </div>
 
 							    <!-- Collect the nav links, forms, and other content for toggling -->
-							    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							    <div id="bs-example-navbar-collapse-1">
 							      <ul class="nav navbar-nav">
 							        <li class="dropdown">
 							          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Look Around <b class="caret"></b></a>
@@ -47,9 +47,7 @@
             	{% block content %}
 
                 {% endblock content %}
-                {% block add_review %}
 
-                {% endblock add_review %}
 
             </div>
 

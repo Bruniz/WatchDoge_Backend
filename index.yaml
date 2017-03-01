@@ -1,4 +1,5 @@
 indexes:
+
 - kind: Report
   ancestor: yes
   properties:
@@ -8,3 +9,9 @@ indexes:
   - name: pets
   - name: entry
   - name: date
+
+- kind: Photo
+  ancestor: no
+  properties:
+  - name: reportID
+  - name: blob_key
