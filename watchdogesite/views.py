@@ -3,7 +3,6 @@ import logging
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from google.appengine.ext import db
 from watchdogesite.models import Report
 from watchdogesite.models import Photo
 
@@ -19,9 +18,11 @@ def about(request):
 
 
 def reports(request):
-    reports = db.GqlQuery("SELECT * FROM Report")
 
-    return render(request, "reports.html", {'reports': reports})
+    reports = Report.all_reports_by_date()
+    photos = Photo.query()
+
+    return render(request, "reports.html", {'reports': reports, 'photos': photos})
 
 @csrf_exempt
 def add_report(request):

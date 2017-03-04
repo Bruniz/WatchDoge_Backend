@@ -1,8 +1,10 @@
 import logging
+import re
 import webapp2
+from google.appengine.api import images
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
-from watchdogesite.models import Photo
+from watchdogesite.models import Photo, Report
 
 AUTH = "AMmfu6Zc_3BPr4ehPamOOQP"
 logger = logging.getLogger(__name__)
@@ -19,37 +21,34 @@ class PhotoUploadUrlCreator(webapp2.RequestHandler):
         if self.request.get('AUTH') == AUTH:
             upload_url = blobstore.create_upload_url('/upload_photo')
             response_data = {upload_url}
+            logger.info('')
             self.response.out.write(response_data)
         else:
-            response_data = {'result': 'OK', 'url': 'NA'}
-            self.response.out.write(response_data)
+            self.error(500)
 
     def get(self):
         self.error(405)
 
-# Method for uploading a photo
-# Get url for upload from calling above method first
-# params: 'reportID' and the file
-# returns JSON
-# Success: {'result': "OK"}
-# Fail: error 500
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     logger.info('photoupload')
     def post(self):
-        logger.info('post')
+        r = str(self.request)
         try:
-            logger.info('try')
-            upload = self.get_uploads()[0]
-            logger.info('upload')
-            photo = Photo(
-                reportID=self.request.get('Reportid'),
-                blob_key=upload.key())
-            logger.info('photo')
-            photo.put()
-            logger.info(self.request.get('Reportid'))
-            logger.info(str(self.request))
-            self.response.out.write(200)
+            x = re.search('<REPORTID>(.+?)<REPORTID>', r)
+            if x:
+                reportID = x.group(1)
+                logger.info(reportID)
+                upload = self.get_uploads()[0]
+                logger.info('upload object')
+                photo = Photo(
+                    reportID=reportID,
+                    serving_url = images.get_serving_url(upload.key()))
+                photo.put()
+                logger.info('photo saved')
 
+                self.response.out.write(200)
+            else:
+                self.error(500)
         except:
             logger.error('server error, except', 500)
             self.error(500)

@@ -6,13 +6,10 @@
         <p>
         	Welcome to the reports page!
         </p>
-        <p>
-        	<a href='/reports/add'>Create a report.</a>
-        </p>
+
     </div>
 
     <div class="container-fluid">
-    	{{ reports.length }}
     	{% for report in reports %}
             <div class="well well-lg">
                 <b>Title: </b> <br>
@@ -27,6 +24,12 @@
                     <b>Apartment entry: </b> <br>
                     {{ report.entry }} <br>
                 {% endif %}
+            {% for photo in photos %}
+                {% if photo.reportID|stringformat:"s" == report.key.id|stringformat:"s" %}
+                   <img src="{{ photo.serving_url }}" width="25%" height="25%"/>
+                {% endif %}
+
+            {% endfor %}
             </div> <br>
     	{% endfor %}
     </div>

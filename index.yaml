@@ -14,4 +14,4 @@ indexes:
   ancestor: no
   properties:
   - name: reportID
-  - name: blob_key
+  - name: serving_url

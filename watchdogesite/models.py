@@ -7,13 +7,13 @@ import datetime
 
 
 # Create your models here.
-class Report(db.Model):
-    type = db.StringProperty(required=True)
-    title = db.StringProperty(required=True)
-    description = db.StringProperty(required=True, multiline=True)
-    pets = db.StringProperty(required=True)
-    entry = db.StringProperty(required=True)
-    date = db.DateProperty()
+class Report(ndb.Model):
+    type = ndb.StringProperty(required=True)
+    title = ndb.StringProperty(required=True)
+    description = ndb.StringProperty(required=True)
+    pets = ndb.StringProperty(required=True)
+    entry = ndb.StringProperty(required=True)
+    date = ndb.DateProperty(auto_now_add=True)
 
     meta = {
         'indexes': [
@@ -21,8 +21,11 @@ class Report(db.Model):
             'title'
         ]
     }
+    @classmethod
+    def all_reports_by_date(cls):
+        return cls.query().order(-cls.date)
 
 
 class Photo(ndb.Model):
     reportID = ndb.StringProperty()
-    blob_key = ndb.BlobKeyProperty()
+    serving_url = ndb.StringProperty(indexed=False)
