@@ -4,33 +4,42 @@
 {% block content %}
     <div class="jumbotron">
         <p>
-        	Welcome to the reports page!
+            Welcome to the reports page!
         </p>
 
     </div>
 
-    <div class="container-fluid">
-    	{% for report in reports %}
-            <div class="well well-lg">
-                <b>Title: </b> <br>
-    		    {{ report.title }} <br>
-                <b>Description: </b> <br>
-                {{ report.description }} <br>
-                <b>Report type: </b> <br>
-                {{ report.type }} <br>
-                {% if report.type == "Private" %}
-                    <b>Pets: </b> <br>
-                    {{ report.pets }} <br>
-                    <b>Apartment entry: </b> <br>
-                    {{ report.entry }} <br>
-                {% endif %}
-            {% for photo in photos %}
-                {% if photo.reportID|stringformat:"s" == report.key.id|stringformat:"s" %}
-                   <img src="{{ photo.serving_url }}" width="25%" height="25%"/>
-                {% endif %}
+    <div class="row-fluid">
 
-            {% endfor %}
+        {% for report in reports %}
+
+            <div class="well well-lg col-md-12">
+                <div class="row-fluid">
+                    <div class="col-md-4">
+                        <b>Title: </b> <br>
+                        {{ report.title }} <br>
+                        <b>Description: </b> <br>
+                        {{ report.description }} <br>
+                        <b>Report type: </b> <br>
+                        {{ report.type }} <br>
+                        {% if report.type == "Private" %}
+                            <b>Pets: </b> <br>
+                            {{ report.pets }} <br>
+                            <b>Apartment entry: </b> <br>
+                            {{ report.entry }} <br>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        {% for photo in photos %}
+                            {% if photo.reportID|stringformat:"s" == report.key.id|stringformat:"s" %}
+                                <img class="img-thumbnail image_row" src="{{ photo.serving_url }}" width="20%"/>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div> <br>
-    	{% endfor %}
+
+        {% endfor %}
+
     </div>
 {% endblock content %}
