@@ -13,7 +13,7 @@ class Report(ndb.Model):
     description = ndb.StringProperty(required=True)
     pets = ndb.StringProperty(required=True)
     entry = ndb.StringProperty(required=True)
-    date = ndb.DateProperty(auto_now_add=True)
+    date = ndb.DateTimeProperty(auto_now_add=True)
 
     meta = {
         'indexes': [
