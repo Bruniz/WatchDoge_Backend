@@ -2,6 +2,7 @@
 
 
 {% block content %}
+
     <div class="jumbotron">
         <p>
             Welcome to the reports page!
@@ -32,7 +33,11 @@
                     <div class="col-md-8">
                         {% for photo in photos %}
                             {% if photo.reportID|stringformat:"s" == report.key.id|stringformat:"s" %}
-                                <img class="img-thumbnail image_row" src="{{ photo.serving_url }}" width="20%"/>
+                                <img class="img-responsive img-thumbnail image_row"
+                                     id="{{ photo.key.id|stringformat:"s" }}"
+                                     src="{{ photo.serving_url }}"
+                                     width="20%" height="20%"/>
+
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -40,6 +45,6 @@
             </div> <br>
 
         {% endfor %}
-
     </div>
+
 {% endblock content %}
