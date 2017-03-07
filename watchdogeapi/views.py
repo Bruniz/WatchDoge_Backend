@@ -20,10 +20,9 @@ CHECK = m.hexdigest()
 
 @csrf_exempt
 def add(request):
-    logger.info('Report recieved')
+    logger.info('Report recieved, saving')
     # Add new report
     if request.method == 'POST':
-        logger.info('Report was POST')
         try:
             items = request.POST
             logger.info(items)
@@ -31,22 +30,18 @@ def add(request):
                     'desc' in items and 'title' in items and
                     'pets' in items and 'entry' in items):
                 logger.info('all params in post')
-                # if request.POST['check'] is not p:
-                #     logger.error(request.POST['check'])
-                #     logger.error('Wrong check')
-                #     return HttpResponseForbidden
+
                 try:
                     logger.info('Try')
                     r = Report(type=items['type'], description=items['desc'], title=items['title'],
                                pets=items['pets'], entry=items['entry'])
                     logger.info(datetime.datetime.now().date())
-                    r.date = datetime.datetime.now().date()
+                    # date is automatically added in the model
                     logger.info(r)
-                    logger.info(datetime.datetime.now().date())
-                    r.put()
-                    r.save()
-                    logger.info(r.key())
-                    return HttpResponse(r.key(),
+                    key = r.put()
+                    key = key.integer_id()
+                    logger.info(key)
+                    return HttpResponse(key,
                                         content_type='text/plain')
                 except TransactionFailedError, e:
                     logger.error('Failed to save report')

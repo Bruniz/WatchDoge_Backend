@@ -1,33 +1,46 @@
 {% extends "base.html" %}
 
-
 {% block content %}
     <div class="jumbotron">
         <p>
-        	Welcome to the reports page!
+        	Reports to TYS Maintenance's
         </p>
-        <p>
-        	<a href='/reports/add'>Create a report.</a>
-        </p>
+    </div>
+    <div class="row-fluid">
+
+        {% for report in reports %}
+
+            <div class="well well-lg col-md-12">
+                <div class="row-fluid">
+                    <div class="col-md-4">
+                        <b>Title: </b> <br>
+                        {{ report.title }} <br>
+                        <b>Description: </b> <br>
+                        {{ report.description }} <br>
+                        <b>Report type: </b> <br>
+                        {{ report.type }} <br>
+                        {% if report.type == "Private" %}
+                            <b>Pets: </b> <br>
+                            {{ report.pets }} <br>
+                            <b>Apartment entry: </b> <br>
+                            {{ report.entry }} <br>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        {% for photo in photos %}
+                            {% if photo.reportID|stringformat:"s" == report.key.id|stringformat:"s" %}
+                                <img class="img-responsive img-thumbnail image_row"
+                                     id="{{ photo.key.id|stringformat:"s" }}"
+                                     src="{{ photo.serving_url }}"
+                                     width="20%" height="20%"/>
+
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div> <br>
+
+        {% endfor %}
     </div>
 
-    <div class="container-fluid">
-    	{{ reports.length }}
-    	{% for report in reports %}
-            <div class="well well-lg">
-                <b>Title: </b> <br>
-    		    {{ report.title }} <br>
-                <b>Description: </b> <br>
-                {{ report.description }} <br>
-                <b>Report type: </b> <br>
-                {{ report.type }} <br>
-                {% if report.type == "Private" %}
-                    <b>Pets: </b> <br>
-                    {{ report.pets }} <br>
-                    <b>Apartment entry: </b> <br>
-                    {{ report.entry }} <br>
-                {% endif %}
-            </div> <br>
-    	{% endfor %}
-    </div>
 {% endblock content %}

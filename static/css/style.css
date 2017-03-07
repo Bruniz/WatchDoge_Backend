@@ -1,0 +1,20 @@
+.image_row{
+    display: inline-block;
+    transition: 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+.image_row:hover {
+    transform: scale(3.0, 3.0);
+    z-index: 10;
+}
+
+.primary_color {
+    background-color: #31a84a;
+}
+.primary_color_dark {
+    background-color: #288a3d;
+}
+.shadow {
+    box-shadow: black;
+}
