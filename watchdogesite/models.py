@@ -23,7 +23,7 @@ class Report(ndb.Model):
     }
     @classmethod
     def all_reports_by_date(cls):
-        return cls.query().order(-cls.date)
+        return cls.query().order(-cls.date).fetch(20)
 
 
 class Photo(ndb.Model):
